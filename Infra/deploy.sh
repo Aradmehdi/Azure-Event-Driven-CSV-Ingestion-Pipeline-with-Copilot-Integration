@@ -21,10 +21,11 @@ az storage queue create --account-name $ST -n $QUEUE --auth-mode login
 
 echo "==> Skapar Log Analytics + App Insights"
 az monitor log-analytics workspace create -g $RG -n $LAW -l $LOC
-LAW_ID=$(az monitor log-analytics workspace show -g $RG -n $LAW --query customerId -o tsv)
+LAW_RES_ID=$(az monitor log-analytics workspace show -g $RG -n $LAW --query id -o tsv)
+
 az monitor app-insights component create \
   -g $RG -l $LOC -a $AI --kind web --application-type web \
-  --workspace $LAW_ID
+  --workspace $LAW_RES_ID
 
 echo "==> Klart! Notera värden:"
 echo "Resource Group: $RG"
@@ -35,4 +36,5 @@ echo "App Insights: $AI"
 EOF
 
 chmod +x deploy.sh
+
 
