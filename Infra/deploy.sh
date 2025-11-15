@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+# För Git Bash på Windows: hindra att /subscriptions... görs om till C:/Program Files/Git/...
+export MSYS_NO_PATHCONV=1
+
+
 # Ställ in variabler
 RG="la-copilot-demo-rg"
 LOC="westeurope"
