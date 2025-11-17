@@ -1,1 +1,21 @@
+# Node / Python / Dotnet common
+bin/
+obj/
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+.local/
+
+# Logic App runtimeloggar
+runtime/
+workflow-designtime/
+
+# zip deployment packages
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
 
