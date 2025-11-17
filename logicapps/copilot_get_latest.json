@@ -1,1 +1,42 @@
+{
+  "kind": "Stateful",
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "triggers": {
+      "When_an_HTTP_request_is_received": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "method": "GET"
+        }
+      }
+    },
+    "actions": {
+      "Get_messages": {
+        "type": "Compose",
+        "description": "I produktion används Azure Queue Storage-connectorn här. I den förenklade versionen simulerar vi hämtningen.",
+        "inputs": "@{json('{\"fileName\":\"https://<YOUR-STORAGE-ACCOUNT>.blob.core.windows.net/incoming/semitest.csv\",\"rows\":\"3\",\"eventTime\":\"2025-11-17T10:49:46.7963231Z\"}')}"
+      },
+      "Response": {
+        "runAfter": {
+          "Get_messages": [
+            "Succeeded"
+          ]
+        },
+        "type": "Response",
+        "kind": "Http",
+        "inputs": {
+          "statusCode": 200,
+          "body": "@outputs('Get_messages')",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    },
+    "outputs": {}
+  }
+}
 
